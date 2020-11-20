@@ -28,6 +28,7 @@ This is a React interface for a Health Provider portal to manage and sign Vaccin
 - [ ] Generate and Sign Vaccination Program QR Code to Print
 - [ ] Accept patient access to ask for their Name and sign the QR Code with Provider's Primary Key
 - [ ] Generate and Download Patient's signed Certificate. 
+- [ ] Make sure the Home Page is only accessible when Signed in
 
 ## Running
 
