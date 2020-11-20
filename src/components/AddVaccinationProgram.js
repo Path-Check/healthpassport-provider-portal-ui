@@ -90,19 +90,19 @@ function AddVaccinationProgram() {
             id="vaccinator" name="vaccinator" value={vaccinator} 
             label="Vaccinator" onChange={(event) => {setVaccinator(event.target.value)}} 
           />
-          <TextField variant="outlined" margin="normal" required fullWidth autoFocus
+          <TextField variant="outlined" margin="normal" required fullWidth 
             id="brand" name="brand" value={brand} 
             label="Vaccine Brand" onChange={(event) => {setBrand(event.target.value)}} 
           />
-          <TextField variant="outlined" margin="normal" required fullWidth autoFocus
+          <TextField variant="outlined" margin="normal" required fullWidth 
             id="product" name="product" value={product} 
             label="Vaccine Product" onChange={(event) => {setProduct(event.target.value)}} 
           />
-          <TextField variant="outlined" margin="normal" required fullWidth autoFocus
+          <TextField variant="outlined" margin="normal" required fullWidth 
             id="dose" name="dose" value={dose} 
             label="Applying Dose" onChange={(event) => {setDose(event.target.value)}} 
           />
-          <TextField variant="outlined" margin="normal" required fullWidth autoFocus
+          <TextField variant="outlined" margin="normal" required fullWidth 
             id="route" name="route" value={route} 
             label="Route" onChange={(event) => {setRoute(event.target.value)}} 
           />
