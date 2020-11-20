@@ -44,7 +44,7 @@ export default function VaccinationPrograms() {
 
   return (
     <React.Fragment>
-      <Title>Recent Vaccinations (Demo Data)</Title>
+      <Title>Recent Vaccinations</Title>
       <Table size="small">
         <TableHead>
           <TableRow>
