@@ -8,23 +8,6 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Title from './Title';
 
-// Generate Order Data
-function createData(id, date, name, location, product, vaccinee) {
-  return { id, date, name, location, product, vaccinee};
-}
-
-const rows = [
-  createData(0, '19 Nov, 2020', 'CVS Minute Clinic', 'Cambridge, MA', 'Moderna Vaccine', 'Vinay Gidwaney'),
-  createData(1, '18 Nov, 2020', 'CVS Minute Clinic', 'Cambridge, MA', 'Moderna Vaccine', '...Certificate Not Taken...'),
-  createData(2, '17 Nov, 2020', 'CVS Minute Clinic', 'Cambridge, MA', 'Moderna Vaccine', 'Sam Zimmermann'),
-  createData(3, '16 Nov, 2020', 'CVS Minute Clinic', 'Cambridge, MA', 'Moderna Vaccine', 'Ramesh Raskar'),
-  createData(4, '15 Nov, 2020', 'CVS Minute Clinic', 'Cambridge, MA', 'Moderna Vaccine', 'Vitor Pamplona'),
-];
-
-function preventDefault(event) {
-  event.preventDefault();
-}
-
 const useStyles = makeStyles((theme) => ({
   seeMore: {
     marginTop: theme.spacing(3),
