@@ -2,6 +2,8 @@
 
 This is a React interface for a Health Provider portal to manage and sign Vaccination Certificates. 
 
+<img src="./docs/ProviderPortalPreview.png" data-canonical-src="./docs/ProviderPortalPreview.png"/>
+
 ## Behaviour
 
 1. Health Provider Signs UP for the service. 
