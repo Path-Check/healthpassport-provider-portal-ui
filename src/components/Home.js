@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -19,7 +19,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import { mainListItems, secondaryListItems } from './Menu';
-import Programs from './Programs';
+import VaccinationPrograms from './VaccinationPrograms';
 import Chart from './Chart';
 import Today from './Today';
 
@@ -118,9 +118,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+ 
+
 export default function Dashboard() {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = useState(true);
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -189,7 +191,7 @@ export default function Dashboard() {
             {/* Recent Orders */}
             <Grid item xs={12}>
               <Paper className={classes.paper}>
-                <Programs />
+                <VaccinationPrograms />
               </Paper>
             </Grid>
           </Grid>

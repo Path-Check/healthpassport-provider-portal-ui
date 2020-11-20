@@ -4,6 +4,7 @@ import {BrowserRouter, Switch, Route} from 'react-router-dom'
 import Home from './components/Home'
 import Login from './components/Login'
 import Signup from './components/Signup'
+import AddVaccinationProgram from './components/AddVaccinationProgram'
 
 class App extends Component {
   constructor(props) {
@@ -52,6 +53,8 @@ class App extends Component {
             <Route exact path='/' component={Home}/>
             <Route exact path='/login' component={() => <Login handleLogin={this.handleLogin} /> }/>
             <Route exact path='/signup' component={() => <Signup handleLogin={this.handleLogin} /> }/>
+
+            <Route exact path='/vaccination_programs/add' component={AddVaccinationProgram}/>
           </Switch>
         </BrowserRouter>
     );

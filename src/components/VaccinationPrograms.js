@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -31,36 +31,45 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Programs() {
+export default function VaccinationPrograms() {
   const classes = useStyles();
+  const [programs, setPrograms] = useState([]);
+
+  useEffect(() => {
+    fetch('http://localhost:3000/vaccination_programs/')
+      .then(response => response.json())
+      .then(data => setPrograms(data.vaccinationPrograms));
+    console.log("useEffect Called");
+  }, []);
+
   return (
     <React.Fragment>
       <Title>Recent Vaccinations (Demo Data)</Title>
       <Table size="small">
         <TableHead>
           <TableRow>
-            <TableCell>Date</TableCell>
-            <TableCell>Name</TableCell>
-            <TableCell>Location</TableCell>
+            <TableCell>Vaccinator</TableCell>
+            <TableCell>Brand</TableCell>
             <TableCell>Product</TableCell>
-            <TableCell>Vaccinnee</TableCell>
+            <TableCell>Dose</TableCell>
+            <TableCell>Route</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
+          {programs.map((row) => (
             <TableRow key={row.id}>
-              <TableCell>{row.date}</TableCell>
-              <TableCell>{row.name}</TableCell>
-              <TableCell>{row.location}</TableCell>
+              <TableCell>{row.vaccinator}</TableCell>
+              <TableCell>{row.brand}</TableCell>
               <TableCell>{row.product}</TableCell>
-              <TableCell>{row.vaccinee}</TableCell>
+              <TableCell>{row.dose}</TableCell>
+              <TableCell>{row.route}</TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
       <div className={classes.seeMore}>
-        <Link color="primary" href="#" onClick={preventDefault}>
-          See more vaccinations
+        <Link color="primary" href="/vaccination_programs/add" >
+          Add New Program
         </Link>
       </div>
     </React.Fragment>
