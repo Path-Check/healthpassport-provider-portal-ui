@@ -5,23 +5,21 @@ import Login from './components/Login'
 import Signup from './components/Signup'
 import AddVaccinationProgram from './components/AddVaccinationProgram'
 import API from './API';
-import { useHistory } from "react-router-dom";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState({});
-  let history = useHistory();
   
   const handleLogin = (data) => {
+    console.log("Logged In");
     setUser(data.user);
     setIsLoggedIn(true);
   }
 
   const handleLogout = () => {
+    console.log("Logged Out");
     setUser({});
     setIsLoggedIn(false);
-    
-    history.push("/login");
   }
 
   const loginStatus = () => {
@@ -40,13 +38,29 @@ function App() {
     loginStatus();
   }, []);
 
+  const PublicRoute = ({ isLoggedIn, ...props }) => {
+    console.log(isLoggedIn);
+    return isLoggedIn
+        ? (<Redirect to="/" />)
+        : (<Route {...props} />);
+  };
+
+  const PrivateRoute = ({ isLoggedIn, ...props }) => {
+    console.log(isLoggedIn);
+    return !isLoggedIn
+        ? (<Redirect to="/login" />)
+        : (<Route {...props} />);
+  };
+
   return (
-    <BrowserRouter history={history}>
+    <BrowserRouter>
       <Switch>
-        <Route exact path='/' component={() => <Home/> }/>
-        <Route exact path='/login' component={() => <Login handleLogin={handleLogin} /> }/>
-        <Route exact path='/signup' component={() => <Signup handleLogin={handleLogin} /> }/>
-        <Route exact path='/vaccination_programs/add' component={AddVaccinationProgram}/>
+        <PrivateRoute isLoggedIn={isLoggedIn} exact path='/' component={() => <Home/> }/>
+        <Route isLoggedIn={isLoggedIn} exact path='/vaccination_programs/add' component={AddVaccinationProgram}/>
+
+        <PublicRoute isLoggedIn={isLoggedIn} exact path='/login' component={() => <Login handleLogin={handleLogin} /> }/>
+        <PublicRoute isLoggedIn={isLoggedIn} exact path='/signup' component={() => <Signup handleLogin={handleLogin} /> }/>
+        
       </Switch>
     </BrowserRouter>
   );
