@@ -7,6 +7,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Title from './Title';
+import API from '../API';
 
 const useStyles = makeStyles((theme) => ({
   seeMore: {
@@ -19,9 +20,8 @@ export default function VaccinationPrograms() {
   const [programs, setPrograms] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:3000/vaccination_programs/')
-      .then(response => response.json())
-      .then(data => setPrograms(data.vaccinationPrograms));
+    API.get('vaccination_programs/', {withCredentials: true})
+       .then(response => setPrograms(response.data.vaccinationPrograms))
     console.log("useEffect Called");
   }, []);
 

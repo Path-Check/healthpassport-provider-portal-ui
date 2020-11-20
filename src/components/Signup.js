@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import axios from 'axios'
 
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -11,6 +10,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import API from '../API';
 
 import { useHistory } from 'react-router-dom';
 
@@ -62,12 +62,11 @@ function Signup({handleLogin}) {
       password_confirmation: password_confirmation
     }
 
-    axios.post('http://localhost:3000/users/', {user}, {withCredentials: true})
+    API.post('users/', {user}, {withCredentials: true})
     .then(response => {
       console.log('Good response', response.data.status)
       if (response.data.status === 'created') {
-        handleLogin(response.data);
-        history.push('/');
+        history.push('/login');
       } else {
         setErrors(response.data.errors);
       }

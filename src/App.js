@@ -1,64 +1,55 @@
-import React, { Component } from 'react';
-import axios from 'axios'
-import {BrowserRouter, Switch, Route} from 'react-router-dom'
+import React, { useState, useEffect }  from 'react';
+import {BrowserRouter, Switch, Route, Redirect} from 'react-router-dom'
 import Home from './components/Home'
 import Login from './components/Login'
 import Signup from './components/Signup'
 import AddVaccinationProgram from './components/AddVaccinationProgram'
+import API from './API';
+import { useHistory } from "react-router-dom";
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { 
-      isLoggedIn: false,
-      user: {}
-     };
-  };
+function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [user, setUser] = useState({});
+  let history = useHistory();
   
-  handleLogin = (data) => {
-    this.setState({
-      isLoggedIn: true,
-      user: data.user
-    });
+  const handleLogin = (data) => {
+    setUser(data.user);
+    setIsLoggedIn(true);
   }
 
-  handleLogout = () => {
-    this.setState({
-      isLoggedIn: false,
-      user: {}
-    });
+  const handleLogout = () => {
+    setUser({});
+    setIsLoggedIn(false);
+    
+    history.push("/login");
   }
 
-  loginStatus = () => {
-    axios.get('http://localhost:3000/logged_in', {withCredentials: true})    
+  const loginStatus = () => {
+    API.get('logged_in', {withCredentials: true})    
     .then(response => {
       if (response.data.logged_in) {
-        this.handleLogin(response)
+        handleLogin(response);
       } else {
-        this.handleLogout()
+        handleLogout();
       }
     })
     .catch(error => console.log('api errors:', error))
   };
 
-  componentDidMount() {
-    this.loginStatus();
-    console.log("History", this.props.history);
-  }
+  useEffect(() => {
+    loginStatus();
+  }, []);
 
-  render() {
-    return (
-         <BrowserRouter>
-          <Switch>
-            <Route exact path='/' component={Home}/>
-            <Route exact path='/login' component={() => <Login handleLogin={this.handleLogin} /> }/>
-            <Route exact path='/signup' component={() => <Signup handleLogin={this.handleLogin} /> }/>
-
-            <Route exact path='/vaccination_programs/add' component={AddVaccinationProgram}/>
-          </Switch>
-        </BrowserRouter>
-    );
-  }
+  return (
+    <BrowserRouter history={history}>
+      <Switch>
+        <Route exact path='/' component={() => <Home/> }/>
+        <Route exact path='/login' component={() => <Login handleLogin={handleLogin} /> }/>
+        <Route exact path='/signup' component={() => <Signup handleLogin={handleLogin} /> }/>
+        <Route exact path='/vaccination_programs/add' component={AddVaccinationProgram}/>
+      </Switch>
+    </BrowserRouter>
+  );
 };
 
 export default App;
