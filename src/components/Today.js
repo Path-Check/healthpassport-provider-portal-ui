@@ -18,7 +18,7 @@ export default function Deposits() {
   const classes = useStyles();
   return (
     <React.Fragment>
-      <Title>Today</Title>
+      <Title>Today (Demo Data)</Title>
       <Typography component="p" variant="h4">
         #452
       </Typography>

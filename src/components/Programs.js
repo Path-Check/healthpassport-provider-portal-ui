@@ -35,7 +35,7 @@ export default function Programs() {
   const classes = useStyles();
   return (
     <React.Fragment>
-      <Title>Recent Vaccinations</Title>
+      <Title>Recent Vaccinations (Demo Data)</Title>
       <Table size="small">
         <TableHead>
           <TableRow>
