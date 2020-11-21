@@ -8,6 +8,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Title from './Title';
 import API from '../API';
+import QRCode from 'qrcode.react';
 
 const useStyles = makeStyles((theme) => ({
   seeMore: {
@@ -24,6 +25,12 @@ export default function VaccinationPrograms() {
        .then(response => setPrograms(response.data.vaccinationPrograms))
   }, []);
 
+  const calculateQR = (vac_prog) => {
+    return "http://localhost:3001/generateQR/" +vac_prog.id
+          + "?date=" + new Date().toJSON() 
+          + "&signature=" + vac_prog.signature;
+  }
+
   return (
     <React.Fragment>
       <Title>Recent Vaccinations</Title>
@@ -35,6 +42,8 @@ export default function VaccinationPrograms() {
             <TableCell>Product</TableCell>
             <TableCell>Dose</TableCell>
             <TableCell>Route</TableCell>
+            <TableCell>Signature</TableCell>
+            <TableCell>Code</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -45,6 +54,9 @@ export default function VaccinationPrograms() {
               <TableCell>{row.product}</TableCell>
               <TableCell>{row.dose}</TableCell>
               <TableCell>{row.route}</TableCell>
+              <TableCell>{row.signature}</TableCell>
+              <TableCell><QRCode value={calculateQR(row)} 
+                                 fgColor="#3654DD" size="150" level="H" /></TableCell>
             </TableRow>
           ))}
         </TableBody>
