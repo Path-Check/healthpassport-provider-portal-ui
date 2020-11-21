@@ -26,35 +26,28 @@ const useStyles = makeStyles({
 function App() {
   const classes = useStyles();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [user, setUser] = useState({});
   const [checkedLoggedIn, setCheckedLoggedIn] = useState(false);
   
   const handleLogin = (data) => {
-    setUser(data.user);
     setIsLoggedIn(true);
   }
 
   const handleLogout = () => {
-    setUser({});
     setIsLoggedIn(false);
   }
 
-  const loginStatus = () => {
-    API.get('logged_in', {withCredentials: true})    
-    .then(response => {
-      if (response.data.logged_in) {
-        handleLogin(response);
-      } else {
-        handleLogout();
-      }
-      setCheckedLoggedIn(true);
-    })
-    .catch(error => console.log('api errors:', error))
-  };
-
   useEffect(() => {
     if (!checkedLoggedIn)
-      loginStatus();
+      API.get('logged_in', {withCredentials: true})    
+      .then(response => {
+        if (response.data.logged_in) {
+          handleLogin(response);
+        } else {
+          handleLogout();
+        }
+        setCheckedLoggedIn(true);
+      })
+      .catch(error => console.log('api errors:', error))
   }, [checkedLoggedIn]);
 
   const PublicRoute = ({ isLoggedIn, ...props }) => {

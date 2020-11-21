@@ -22,7 +22,6 @@ export default function VaccinationPrograms() {
   useEffect(() => {
     API.get('vaccination_programs/', {withCredentials: true})
        .then(response => setPrograms(response.data.vaccinationPrograms))
-    console.log("useEffect Called");
   }, []);
 
   return (
