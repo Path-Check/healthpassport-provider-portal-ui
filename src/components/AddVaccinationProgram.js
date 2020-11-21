@@ -107,8 +107,6 @@ function AddVaccinationProgram() {
             label="Route" onChange={(event) => {setRoute(event.target.value)}} 
           />
 
-
-
           <Typography component="p" className={classes.errors}>
             {CapitalizeFirstLetter(errors.join('.'))}
           </Typography>     
