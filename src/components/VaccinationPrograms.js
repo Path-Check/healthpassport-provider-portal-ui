@@ -55,8 +55,12 @@ export default function VaccinationPrograms() {
               <TableCell>{row.dose}</TableCell>
               <TableCell>{row.route}</TableCell>
               <TableCell>{row.signature}</TableCell>
-              <TableCell><QRCode value={calculateQR(row)} 
-                                 fgColor="#3654DD" size="150" level="H" /></TableCell>
+              <TableCell>
+                <Link href={"/printVaccination/" + row.id}>
+                  <QRCode value={calculateQR(row)} 
+                                 fgColor="#3654DD" size="150" level="H" />
+                </Link>
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
