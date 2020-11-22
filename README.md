@@ -25,15 +25,18 @@ This is a React interface for a Health Provider portal to manage and sign Vaccin
 - [x] Home Page
 - [x] New Vaccination Programs
 - [x] Listing Vaccination Programs on Home Page
-- [ ] Add Logout Route
 - [x] Make VaccinationPrograms belong to a user and properly filter in the UI.
 - [x] Must be logged in to access VaccinationPrograms 
+- [x] Generate and Sign Vaccination Program QR Code to Print
+- [x] Accept patient access to ask for their Name and sign the QR Code with Provider's Primary Key
+- [x] Generate and Download Patient's signed Certificate. 
+- [x] Make sure the Home Page is only accessible when Signed in
+- [ ] Add Logout Route
 - [ ] Health Provider's Password recovery (Forgot My Password logic)
 - [ ] Edit Vaccination Program
-- [ ] Generate and Sign Vaccination Program QR Code to Print
-- [ ] Accept patient access to ask for their Name and sign the QR Code with Provider's Primary Key
-- [ ] Generate and Download Patient's signed Certificate. 
-- [ ] Make sure the Home Page is only accessible when Signed in
+- [ ] Sign the Vaccination Program QR Code on the server
+- [ ] Sign the Certificate of Vaccination QR Code on the server
+
 
 ## Running
 
