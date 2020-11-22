@@ -41,6 +41,10 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+  qrcontent: {
+    width: '100%', // Fix IE 11 issue.
+    marginTop: theme.spacing(1),
+  },
 }));
 
 function GenerateCertificate({ context }) {
@@ -61,7 +65,7 @@ function GenerateCertificate({ context }) {
       manuf: program.brand,
       lot: program.lot,
       route: program.route,
-      site: "Rigth Arm",
+      site: "Right Arm",
       dose: program.dose,
       vaccinator: program.vaccinator,
       vaccinee: vaccinee,
@@ -123,7 +127,7 @@ function GenerateCertificate({ context }) {
 
         <QRCode value={certificate} fgColor="#3654DD" size="345" level="H" />
 
-        <Typography component="p" variant="body2">
+        <Typography component="p" variant="body2" className={classes.qrcontent}>
             Content: {certificate}
         </Typography> 
       </div>
