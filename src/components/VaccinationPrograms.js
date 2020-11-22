@@ -25,8 +25,9 @@ export default function VaccinationPrograms() {
        .then(response => setPrograms(response.data.vaccinationPrograms))
   }, []);
 
+  // TODO: Export this into a lib
   const calculateQR = (vac_prog) => {
-    return "http://localhost:3001/generateQR/" +vac_prog.id
+    return "http://localhost:3001/generateCertificate/" +vac_prog.id
           + "?date=" + new Date().toJSON() 
           + "&signature=" + vac_prog.signature;
   }

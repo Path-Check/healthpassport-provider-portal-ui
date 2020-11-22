@@ -67,7 +67,7 @@ export default function PrintVaccinationProgram({ context }) {
   }, []);
 
   const calculateQR = (vac_prog) => {
-    return "http://localhost:3001/generateQR/" +context.match.params.id
+    return "http://localhost:3001/generateCertificate/" +context.match.params.id
           + "?date=" + new Date().toJSON() 
           + "&signature=" + vac_prog.signature;
   }
@@ -94,12 +94,7 @@ export default function PrintVaccinationProgram({ context }) {
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
-        </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon />
-        </IconButton>
+
         <IconButton
           className={clsx(classes.expand, {
             [classes.expandOpen]: expanded,

@@ -9,6 +9,7 @@ import Login from './components/Login'
 import Signup from './components/Signup'
 import AddVaccinationProgram from './components/AddVaccinationProgram'
 import PrintVaccinationProgram from './components/PrintVaccinationProgram'
+import GenerateCertificate from './components/GenerateCertificate'
 
 import API from './API';
 
@@ -74,6 +75,7 @@ function App() {
           <PrivateRoute isLoggedIn={isLoggedIn} exact path='/vaccination_programs/add' component={() => <AddVaccinationProgram />}/>
           <PrivateRoute isLoggedIn={isLoggedIn} exact path='/printVaccination/:id' component={(context) => <PrintVaccinationProgram context={context} />}/>
 
+          <Route isLoggedIn={isLoggedIn} exact path='/generateCertificate/:id' component={(context) => <GenerateCertificate context={context} /> }/>
           <PublicRoute isLoggedIn={isLoggedIn} exact path='/login' component={() => <Login handleLogin={handleLogin} /> }/>
           <PublicRoute isLoggedIn={isLoggedIn} exact path='/signup' component={() => <Signup handleLogin={handleLogin} /> }/>  
 
