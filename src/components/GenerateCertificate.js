@@ -52,7 +52,7 @@ function GenerateCertificate({ context }) {
   const [vaccinee, setVacinee] = useState([]);
   const [errors, setErrors] = useState([]);
   const [program, setProgram] = useState();
-  const [certificate, setCertificate] = useState([]);
+  const [certificate, setCertificate] = useState("");
   
   let history = useHistory();
 
@@ -124,12 +124,12 @@ function GenerateCertificate({ context }) {
             Generate
           </Button>
         </form>
-
-        <QRCode value={certificate} fgColor="#3654DD" size="345" level="H" />
-
-        <Typography component="p" variant="body2" className={classes.qrcontent}>
+        { certificate.length >0 ? <QRCode value={certificate} fgColor="#3654DD" size="345" level="H" />: null }
+        { certificate.length >0 ? 
+          <Typography component="p" variant="body2" className={classes.qrcontent}>
             Content: {certificate}
-        </Typography> 
+          </Typography>
+          : null }
       </div>
     </Container>
   );
