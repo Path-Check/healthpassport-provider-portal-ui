@@ -59,7 +59,7 @@ export default function VaccinationPrograms() {
               <TableCell>
                 <Link href={"/printVaccination/" + row.id}>
                   <QRCode value={calculateQR(row)} 
-                                 fgColor="#3654DD" size="150" level="H" />
+                                 fgColor="#3654DD" size={150} level="H" />
                 </Link>
               </TableCell>
             </TableRow>

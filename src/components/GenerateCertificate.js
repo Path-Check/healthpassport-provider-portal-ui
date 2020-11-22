@@ -4,7 +4,6 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
@@ -54,8 +53,6 @@ function GenerateCertificate({ context }) {
   const [program, setProgram] = useState();
   const [certificate, setCertificate] = useState("");
   
-  let history = useHistory();
-
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -124,7 +121,7 @@ function GenerateCertificate({ context }) {
             Generate
           </Button>
         </form>
-        { certificate.length >0 ? <QRCode value={certificate} fgColor="#3654DD" size="345" level="H" />: null }
+        { certificate.length >0 ? <QRCode value={certificate} fgColor="#3654DD" size={345} level="H" />: null }
         { certificate.length >0 ? 
           <Typography component="p" variant="body2" className={classes.qrcontent}>
             Content: {certificate}
