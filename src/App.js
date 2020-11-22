@@ -75,7 +75,8 @@ function App() {
           <PrivateRoute isLoggedIn={isLoggedIn} exact path='/vaccination_programs/add' component={() => <AddVaccinationProgram />}/>
           <PrivateRoute isLoggedIn={isLoggedIn} exact path='/printVaccination/:id' component={(context) => <PrintVaccinationProgram context={context} />}/>
 
-          <Route isLoggedIn={isLoggedIn} exact path='/generateCertificate/:id' component={(context) => <GenerateCertificate context={context} /> }/>
+          <Route exact path='/generateCertificate/:id' component={(context) => <GenerateCertificate context={context} /> }/>
+          
           <PublicRoute isLoggedIn={isLoggedIn} exact path='/login' component={() => <Login handleLogin={handleLogin} /> }/>
           <PublicRoute isLoggedIn={isLoggedIn} exact path='/signup' component={() => <Signup handleLogin={handleLogin} /> }/>  
 
