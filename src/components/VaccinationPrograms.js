@@ -27,7 +27,11 @@ export default function VaccinationPrograms() {
 
   // TODO: Export this into a lib
   const calculateQR = (vac_prog) => {
-    return "http://localhost:3001/generateCertificate/" +vac_prog.id
+    const UI_URL = process.env.NODE_ENV === 'production' ? 
+           'http://vitorpamplona.com/healthpassport-provider-portal-ui/'
+           : 'http://localhost:3001'
+    
+    return UI_URL + "/generateCertificate/" +vac_prog.id
           + "?date=" + new Date().toJSON() 
           + "&signature=" + vac_prog.signature;
   }
