@@ -64,7 +64,7 @@ export default function PrintVaccinationProgram({ context }) {
 
   const calculateQR = (vac_prog) => {
     const UI_URL = process.env.NODE_ENV === 'production' ? 
-           'http://vitorpamplona.com'
+           'https://healthpassportprovider.herokuapp.com'
            : 'http://localhost:3001'
 
     return UI_URL + process.env.PUBLIC_URL + "/generateCertificate/" +context.match.params.id
