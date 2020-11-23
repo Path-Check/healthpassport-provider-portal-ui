@@ -52,25 +52,21 @@ export default function PrintVaccinationProgram({ context }) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
   const [program, setProgram] = useState([]);
+  const [url, setURL] = useState([]);
   
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
+  const processReturn = (data) => {
+    setProgram(data.vaccinationProgram);
+    setURL(data.signedPublicURL);
+  }
+
   useEffect(() => {
     API.get('vaccination_programs/'+context.match.params.id, {withCredentials: true})
-       .then(response => setProgram(response.data.vaccinationProgram))
+       .then(response => processReturn(response.data));
   }, []);
-
-  const calculateQR = (vac_prog) => {
-    const UI_URL = process.env.NODE_ENV === 'production' ? 
-           'http://healthpassport.vitorpamplona.com'
-           : 'http://localhost:3001'
-
-    return UI_URL + process.env.PUBLIC_URL + "/generateCertificate/" +context.match.params.id
-          + "?date=" + new Date().toJSON() 
-          + "&signature=" + vac_prog.signature;
-  }
 
   return (
     <Container component="main" maxWidth="xs" className={classes.container}>
@@ -87,7 +83,7 @@ export default function PrintVaccinationProgram({ context }) {
         title={program.vaccinator}
         subheader={<Moment format="MMMM DD, YYYY">{program.created_at}</Moment>}
       />
-      <QRCode value={calculateQR(program)} fgColor="#3654DD" size={174} level="H" />
+      <QRCode value={url} fgColor="#3654DD" size={174} level="H" />
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
           Scan the code below to create your own Vaccine Certificate
@@ -108,7 +104,7 @@ export default function PrintVaccinationProgram({ context }) {
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          <Typography variant="body2" paragraph>Content: <Link href={calculateQR(program)}>{calculateQR(program)}</Link></Typography>
+          <Typography variant="body2" paragraph>Content: <Link href={url}>{url}</Link></Typography>
         </CardContent>
       </Collapse>
     </Card>

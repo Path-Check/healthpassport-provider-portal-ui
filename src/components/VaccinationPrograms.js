@@ -8,7 +8,6 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Title from './Title';
 import API from '../API';
-import QRCode from 'qrcode.react';
 
 const useStyles = makeStyles((theme) => ({
   seeMore: {
@@ -25,17 +24,6 @@ export default function VaccinationPrograms() {
        .then(response => setPrograms(response.data.vaccinationPrograms))
   }, []);
 
-  // TODO: Export this into a lib
-  const calculateQR = (vac_prog) => {
-    const UI_URL = process.env.NODE_ENV === 'production' ? 
-           'http://healthpassport.vitorpamplona.com'
-           : 'http://localhost:3001'
-    
-    return UI_URL + process.env.PUBLIC_URL +  "/generateCertificate/" +vac_prog.id
-          + "?date=" + new Date().toJSON() 
-          + "&signature=" + vac_prog.signature;
-  }
-
   return (
     <React.Fragment>
       <Title>Recent Vaccinations</Title>
@@ -47,8 +35,7 @@ export default function VaccinationPrograms() {
             <TableCell>Product</TableCell>
             <TableCell>Dose</TableCell>
             <TableCell>Route</TableCell>
-            <TableCell>Signature</TableCell>
-            <TableCell>Code</TableCell>
+            <TableCell>Action</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -59,11 +46,8 @@ export default function VaccinationPrograms() {
               <TableCell>{row.product}</TableCell>
               <TableCell>{row.dose}</TableCell>
               <TableCell>{row.route}</TableCell>
-              <TableCell>{row.signature}</TableCell>
               <TableCell>
-                <Link href={"/printVaccination/" + row.id}>
-                  <QRCode value={calculateQR(row)} 
-                                 fgColor="#3654DD" size={150} level="H" />
+                <Link href={"/printVaccination/" + row.id}>Show Code
                 </Link>
               </TableCell>
             </TableRow>

@@ -51,6 +51,7 @@ function GenerateCertificate({ context }) {
   const [vaccinee, setVacinee] = useState([]);
   const [errors, setErrors] = useState([]);
   const [program, setProgram] = useState();
+  const [verified, setVerified] = useState();
   const [certificate, setCertificate] = useState("");
   
   const handleSubmit = (event) => {
@@ -86,12 +87,23 @@ function GenerateCertificate({ context }) {
           + "&signature=" + cert.signature;
   }
   
+  const processReturn = (data) => {
+    setVerified(data.verified)
+    setProgram(data.vaccinationProgram)
+  }
+
   useEffect(() => {
-    API.get('vaccination_programs/'+context.match.params.id, {withCredentials: true})
-       .then(response => setProgram(response.data.vaccinationProgram))
+    //console.log(context.location.search.split("&"))
+    const queryString = require('query-string');
+    const parsed = queryString.parse(context.location.search, {decode:false});
+    API.get('vaccination_programs/'+context.match.params.id + "/verify?" +
+            'date=' + parsed.date +
+            '&signature=' + parsed.signature, 
+           {withCredentials: true})
+       .then(response => processReturn(response.data))
   }, []);
 
-  return (
+  return verified ? (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
@@ -127,9 +139,24 @@ function GenerateCertificate({ context }) {
             Content: {certificate}
           </Typography>
           : null }
+      </div> : 
+    </Container>
+  ) : (
+    <Container component="main" maxWidth="xs">
+      <CssBaseline />
+        <div className={classes.paper}>
+        <Avatar className={classes.avatar} src="/cvs.png">
+
+        </Avatar>
+        <Typography component="h1" variant="h5">
+          Invalid Signature.
+        </Typography>    
+        <Typography component="p">
+          Try scanning your code again
+        </Typography>    
       </div>
     </Container>
-  );
+  )
 }
 
 export default GenerateCertificate;
