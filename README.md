@@ -47,3 +47,7 @@ Install modules:
 
 Start UI
 `yarn start`
+
+## Staging Server
+
+This project is deployed to [https://healthpassportprovider.herokuapp.com/](https://healthpassportprovider.herokuapp.com/) at every commit. 
