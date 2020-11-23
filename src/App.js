@@ -61,6 +61,8 @@ function App() {
         : (<Route {...props} />);
   };
 
+  console.log(process.env);
+
   if (!checkedLoggedIn) {
     return (
       <Container component="main" className={classes.container}>  
