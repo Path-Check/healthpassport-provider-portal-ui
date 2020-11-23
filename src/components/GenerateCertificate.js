@@ -115,11 +115,6 @@ function GenerateCertificate({ context }) {
           </Button>
         </form>
         { certificate.length >0 ? <QRCode value={certificate} fgColor="#3654DD" size={345} level="H" />: null }
-        { certificate.length >0 ? 
-          <Typography component="p" variant="body2" className={classes.qrcontent}>
-            Content: {certificate}
-          </Typography>
-          : null }
       </div>
     </Container>
   ) : (
