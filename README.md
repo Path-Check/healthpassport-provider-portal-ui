@@ -43,11 +43,7 @@ This is a React interface for a Health Provider portal to manage and sign Vaccin
 Make sure you have everything you need to run a React service. 
 
 Install modules:
-`npm install`
+`yarn install`
 
 Start UI
-`npm start`
-
-## Staging Environment 
-
-Current commit is pushed to [GitHub Pages](http://vitorpamplona.com/healthpassport-provider-portal-ui/) via GitHub Actions
+`yarn start`
