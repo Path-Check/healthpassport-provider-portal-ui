@@ -54,38 +54,21 @@ function GenerateCertificate({ context }) {
   const [verified, setVerified] = useState();
   const [certificate, setCertificate] = useState("");
   
+  const queryString = require('query-string');
+  const parsed = queryString.parse(context.location.search, {decode:false});
+
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    let certificateData = {
-      name: program.product,
-      date: new Date(),
-      manuf: program.brand,
-      lot: program.lot,
-      route: program.route,
-      site: "Right Arm",
-      dose: program.dose,
-      vaccinator: program.vaccinator,
+    let certificate = {
+      program_date: parsed.date,
+      program_signature: parsed.signature,
       vaccinee: vaccinee,
     }
 
-    setCertificate(calculateCertificateQR(certificateData));
+    API.post('vaccination_programs/'+context.match.params.id + "/certify", { certificate }, {withCredentials: true})
+       .then(response =>  setCertificate(response.data.certificate))
   }  
-
-  // TODO: Export this into a lib
-  const calculateCertificateQR = (cert) => {
-    return "healthpass:vaccine?"
-          + "name="
-          + "&date=" + cert.date.toJSON() 
-          + "&manuf=" + cert.manuf
-          + "&lot=" + cert.lot
-          + "&route=" + cert.route
-          + "&site=" + cert.site
-          + "&dose=" + cert.dose
-          + "&vaccinator=" + cert.vaccinator
-          + "&vaccinee=" + cert.vaccinee
-          + "&signature=" + cert.signature;
-  }
   
   const processReturn = (data) => {
     setVerified(data.verified)
@@ -94,8 +77,6 @@ function GenerateCertificate({ context }) {
 
   useEffect(() => {
     //console.log(context.location.search.split("&"))
-    const queryString = require('query-string');
-    const parsed = queryString.parse(context.location.search, {decode:false});
     API.get('vaccination_programs/'+context.match.params.id + "/verify?" +
             'date=' + parsed.date +
             '&signature=' + parsed.signature, 
@@ -139,7 +120,7 @@ function GenerateCertificate({ context }) {
             Content: {certificate}
           </Typography>
           : null }
-      </div> : 
+      </div>
     </Container>
   ) : (
     <Container component="main" maxWidth="xs">
