@@ -47,3 +47,7 @@ Install modules:
 
 Start UI
 `npm start`
+
+## Staging Environment 
+
+Current commit is pushed to [GitHub Pages](http://vitorpamplona.com/healthpassport-provider-portal-ui/) via GitHub Actions
