@@ -2,6 +2,9 @@
 
 This is a React interface for a Health Provider portal to manage and sign Vaccination Certificates. 
 
+The API part is [here](https://github.com/vitorpamplona/healthpassport-provider-portal-api). 
+A Demo hot deployed from staging is [here](https://healthpassport.vitorpamplona.com/). 
+
 <img src="./docs/ProviderPortalPreview.png" data-canonical-src="./docs/ProviderPortalPreview.png"/>
 
 ## Behaviour
@@ -33,10 +36,14 @@ This is a React interface for a Health Provider portal to manage and sign Vaccin
 - [x] Make sure the Home Page is only accessible when Signed in
 - [x] Sign the Vaccination Program QR Code on the server
 - [x] Sign the Certificate of Vaccination QR Code on the server
+- [x] User's public key download
+- [x] Percent-encoding and Base64 for signatures
+- [x] Staging deployed [here](https://healthpassport.vitorpamplona.com/)
 - [ ] Add Logout Route
 - [ ] Health Provider's Password recovery (Forgot My Password logic)
 - [ ] Edit Vaccination Program
-
+- [ ] Dockerize it
+- [ ] Reduce amount of data on QRCodes
 
 ## Running
 
