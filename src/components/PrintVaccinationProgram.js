@@ -92,7 +92,7 @@ export default function PrintVaccinationProgram({ context }) {
       <QRCode value={url} fgColor="#3654DD" size={Math.min(size.height-250, size.width-32)} level="H" />
       <CardActions disableSpacing className={classes.descrip}>
         <Typography variant="body2" color="textSecondary" component="p">
-          Scan the code below to create your own Vaccine Certificate
+          Scan the code above to create your own Vaccine Certificate
         </Typography>
         <IconButton
           className={clsx(classes.expand, {
