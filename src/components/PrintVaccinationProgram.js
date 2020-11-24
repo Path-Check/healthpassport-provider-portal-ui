@@ -27,7 +27,10 @@ const useStyles = makeStyles((theme) => ({
     height:'100vh'
   },
   root: {
-    maxWidth: 345,
+    maxWidth: 285
+  },
+  code: {
+    
   },
   media: {
     height: 0,
@@ -83,14 +86,11 @@ export default function PrintVaccinationProgram({ context }) {
         title={program.vaccinator}
         subheader={<Moment format="MMMM DD, YYYY">{program.created_at}</Moment>}
       />
-      <QRCode value={url} fgColor="#3654DD" size={174} level="H" />
-      <CardContent>
+      <QRCode value={url} fgColor="#3654DD" size={285} level="H" />
+      <CardActions disableSpacing>
         <Typography variant="body2" color="textSecondary" component="p">
           Scan the code below to create your own Vaccine Certificate
         </Typography>
-      </CardContent>
-      <CardActions disableSpacing>
-
         <IconButton
           className={clsx(classes.expand, {
             [classes.expandOpen]: expanded,
