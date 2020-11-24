@@ -29,6 +29,11 @@ const useStyles = makeStyles((theme) => ({
   descrip: {
     paddingLeft:15
   },
+  qrcontent: {
+    overflow:'break-word',
+    whiteSpace: 'unset',
+    wordBreak: 'break-all'
+  },
   media: {
     height: 0,
     paddingTop: '56.25%', // 16:9
@@ -49,12 +54,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function PrintVaccinationProgram({ context }) {
-  const classes = useStyles();
+  const size = useWindowSize();
+  const classes = useStyles(size);
   const [expanded, setExpanded] = React.useState(false);
   const [program, setProgram] = useState([]);
   const [url, setURL] = useState([]);
-
-  const size = useWindowSize();
   
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -85,7 +89,7 @@ export default function PrintVaccinationProgram({ context }) {
         title={program.vaccinator}
         subheader={<Moment format="MMMM DD, YYYY">{program.created_at}</Moment>}
       />
-      <QRCode value={url} fgColor="#3654DD" size={Math.min(size.height-450, size.width-32)} level="H" />
+      <QRCode value={url} fgColor="#3654DD" size={Math.min(size.height-250, size.width-32)} level="H" />
       <CardActions disableSpacing className={classes.descrip}>
         <Typography variant="body2" color="textSecondary" component="p">
           Scan the code below to create your own Vaccine Certificate
@@ -102,8 +106,10 @@ export default function PrintVaccinationProgram({ context }) {
         </IconButton>
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CardContent>
-          <Typography variant="body2" paragraph>Content: <Link href={url}>{url}</Link></Typography>
+        <CardContent style={{"maxWidth" : Math.min(size.height-290, size.width-32)}}>
+          <Typography variant="body2" paragraph className={classes.qrcontent}>
+            Content: <Link href={url}>{url}</Link>
+          </Typography>
         </CardContent>
       </Collapse>
     </Card>
