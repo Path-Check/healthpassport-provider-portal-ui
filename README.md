@@ -57,4 +57,8 @@ Start UI
 
 ## Staging Server
 
-This project is deployed to [https://healthpassportprovider.herokuapp.com/](https://healthpassportprovider.herokuapp.com/) at every commit. 
+This project is deployed to [https://healthpassport.vitorpamplona.com](https://healthpassport.vitorpamplona.com) at every commit. 
+
+## Contributing
+
+[Issues](https://github.com/Path-Check/healthpassport-provider-portal-ui/issues) and [pull requests](https://github.com/Path-Check/healthpassport-provider-portal-ui/pulls) are very welcome! :)
