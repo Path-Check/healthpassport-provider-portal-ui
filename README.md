@@ -39,7 +39,7 @@ A Demo hot deployed from staging is [here](https://healthpassport.vitorpamplona.
 - [x] User's public key download
 - [x] Percent-encoding and Base64 for signatures
 - [x] Staging deployed [here](https://healthpassport.vitorpamplona.com/)
-- [ ] Add Logout Route
+- [x] Add Logout Route
 - [ ] Health Provider's Password recovery (Forgot My Password logic)
 - [ ] Edit Vaccination Program
 - [ ] Dockerize it
