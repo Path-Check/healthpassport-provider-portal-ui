@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1, 0, 2),
   },
   certificte: {
-    marginTop: theme.spacing(1),
+    marginTop: theme.spacing(3),
   },
 }));
 
@@ -87,30 +87,33 @@ function GenerateCertificate({ context }) {
         </Avatar>
         <Typography component="h1" variant="h5">
           New Vaccine Certificate
-        </Typography>    
-       <form className={classes.form} onSubmit={handleSubmit}>
-          <TextField variant="outlined" margin="normal" required fullWidth 
-            id="vaccinee" name="vaccinee" value={vaccinee} 
-            label="Your Name" onChange={(event) => {setVacinee(event.target.value)}} 
-          />
+        </Typography>
+        { certificate.length == 0 ?    
+          <form className={classes.form} onSubmit={handleSubmit}>
+            <TextField variant="outlined" margin="normal" required fullWidth 
+              id="vaccinee" name="vaccinee" value={vaccinee} 
+              label="Your Name" onChange={(event) => {setVacinee(event.target.value)}} 
+            />
 
-          <Typography component="p" className={classes.errors}>
-            {errors.join('.')}
-          </Typography>
+            <Typography component="p" className={classes.errors}>
+              {errors.join('.')}
+            </Typography>
 
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-          >
-            Generate
-          </Button>
-        </form>
-        <div className={classes.certificte}>
-        { certificate.length >0 ? <QRCode value={certificate} fgColor="#3654DD" size={345} level="L" />: null }
-        </div>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+            >
+              Generate
+            </Button>
+          </form>
+          :
+          <div className={classes.certificte}>
+            <QRCode value={certificate} fgColor="#3654DD" size={345} level="L" />
+          </div>
+          }
       </div>
     </Container>
   ) : errors ? (
