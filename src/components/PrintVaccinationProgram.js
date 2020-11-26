@@ -96,7 +96,7 @@ export default function PrintVaccinationProgram({ context }) {
         title={program.vaccinator}
         subheader={<Moment format="MMMM DD, YYYY">{program.created_at}</Moment>}
       />
-      <QRCode value={url} fgColor="#3654DD" size={Math.min(size.height-250, size.width-32)} level="L" /> 
+      <QRCode value={url} fgColor="#3654DD" size={Math.min(size.height-250, size.width-32)} level="H" /> 
       <CardActions disableSpacing className={classes.descrip}>
         <Typography variant="body2" color="textSecondary" component="p">
           Scan the code above to create your own Vaccine Certificate
