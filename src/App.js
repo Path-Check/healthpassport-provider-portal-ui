@@ -1,29 +1,16 @@
 import React, { useState, useEffect }  from 'react';
 import {BrowserRouter, Switch, Route, Redirect} from 'react-router-dom'
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-import SyncLoader from "react-spinners/SyncLoader";
 import Home from './components/Home'
 import Login from './components/Login'
 import Signup from './components/Signup'
 import AddVaccinationProgram from './components/AddVaccinationProgram'
 import PrintVaccinationProgram from './components/PrintVaccinationProgram'
 import GenerateCertificate from './components/GenerateCertificate'
+import LoadingScreen from './components/LoadingScreen'
 
 import API from './API';
 
-const useStyles = makeStyles({
-  container: {
-    flex: 1,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    height:'100vh'
-  }
-});
-
 function App() {
-  const classes = useStyles();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [checkedLoggedIn, setCheckedLoggedIn] = useState(false);
   
@@ -62,11 +49,7 @@ function App() {
   };
 
   if (!checkedLoggedIn) {
-    return (
-      <Container component="main" className={classes.container}>  
-        <SyncLoader size={15} color={"#3654DD"} />
-      </Container>
-    );
+    return (<LoadingScreen />);
   } else {
     return (
       <BrowserRouter>

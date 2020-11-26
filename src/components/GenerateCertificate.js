@@ -9,12 +9,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import API from '../API';
 import QRCode from 'qrcode.react';
-
-import { useHistory } from 'react-router-dom';
-
-const CapitalizeFirstLetter = (str) => {
-  return str.length ? str.charAt(0).toUpperCase() + str.slice(1) : str
-}
+import Loading from './LoadingScreen';
+import ErrorScreen from './ErrorScreen';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -29,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
   },
   form: {
     width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(3),
+    marginTop: theme.spacing(1),
   },
   errors: {
     width: '100%', // Fix IE 11 issue.
@@ -38,10 +34,9 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'center'
   },
   submit: {
-    margin: theme.spacing(3, 0, 2),
+    margin: theme.spacing(1, 0, 2),
   },
-  qrcontent: {
-    width: '100%', // Fix IE 11 issue.
+  certificte: {
     marginTop: theme.spacing(1),
   },
 }));
@@ -50,7 +45,6 @@ function GenerateCertificate({ context }) {
   const classes = useStyles();
   const [vaccinee, setVacinee] = useState([]);
   const [errors, setErrors] = useState([]);
-  const [program, setProgram] = useState();
   const [verified, setVerified] = useState();
   const [certificate, setCertificate] = useState("");
   
@@ -67,22 +61,22 @@ function GenerateCertificate({ context }) {
     }
 
     API.post('vaccination_programs/'+context.match.params.id + "/certify", { certificate }, {withCredentials: true})
-       .then(response =>  setCertificate(response.data.certificate))
+       .then(response => setCertificate(response.data.certificate))
+       .catch(error => setErrors(error.response.data.errors));
   }  
   
   const processReturn = (data) => {
     setVerified(data.verified)
-    setProgram(data.vaccinationProgram)
   }
 
   useEffect(() => {
-    //console.log(context.location.search.split("&"))
     API.get('vaccination_programs/'+context.match.params.id + "/verify?" +
             'date=' + parsed.date +
             '&signature=' + parsed.signature, 
            {withCredentials: true})
        .then(response => processReturn(response.data))
-  }, []);
+       .catch(error => setErrors(error.response.data.errors));
+  }, [context.match.params.id, parsed.date, parsed.signature]);
 
   return verified ? (
     <Container component="main" maxWidth="xs">
@@ -101,7 +95,7 @@ function GenerateCertificate({ context }) {
           />
 
           <Typography component="p" className={classes.errors}>
-            {CapitalizeFirstLetter(errors.join('.'))}
+            {errors.join('.')}
           </Typography>
 
           <Button
@@ -114,24 +108,15 @@ function GenerateCertificate({ context }) {
             Generate
           </Button>
         </form>
+        <div className={classes.certificte}>
         { certificate.length >0 ? <QRCode value={certificate} fgColor="#3654DD" size={345} level="H" />: null }
+        </div>
       </div>
     </Container>
+  ) : errors ? (
+    <ErrorScreen title={"Invalid Vaccination Program"} errors={errors} />
   ) : (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
-        <div className={classes.paper}>
-        <Avatar className={classes.avatar} src="/cvs.png">
-
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Invalid Signature.
-        </Typography>    
-        <Typography component="p">
-          Try scanning your code again
-        </Typography>    
-      </div>
-    </Container>
+    <Loading />
   )
 }
 

@@ -72,7 +72,7 @@ function AddVaccinationProgram() {
         setErrors(response.data.errors);
       }
     })
-    .catch(error => console.log('api errors:', error))
+    .catch(error => setErrors(error.response.data.errors));
   }  
 
   return (

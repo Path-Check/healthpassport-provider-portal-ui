@@ -16,10 +16,6 @@ import API from '../API';
 
 import { useHistory } from 'react-router-dom';
 
-const CapitalizeFirstLetter = (str) => {
-  return str.length ? str.charAt(0).toUpperCase() + str.slice(1) : str
-}
-
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -71,7 +67,7 @@ function Login({handleLogin}) {
         setErrors(response.data.errors);
       }
     })
-    .catch(error => console.log('api errors:', error))
+    .catch(error => setErrors(error.response.data.errors));
   }
 
   return (
@@ -116,7 +112,7 @@ function Login({handleLogin}) {
             label="Remember me"
           /> 
           <Typography component="p" className={classes.errors}>
-            {CapitalizeFirstLetter(errors.join('.'))}
+            {errors.join('.\n')}
           </Typography>    
           <Button
             type="submit"

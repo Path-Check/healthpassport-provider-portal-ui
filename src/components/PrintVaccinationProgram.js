@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
 import Container from '@material-ui/core/Container';
+import CssBaseline from '@material-ui/core/CssBaseline';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
@@ -13,10 +14,13 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import { red } from '@material-ui/core/colors';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
 import API from '../API';
 import QRCode from 'qrcode.react';
 import Link from '@material-ui/core/Link';
+import LoadingScreen from './LoadingScreen';
+import ErrorScreen from './ErrorScreen';
+
+
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -59,6 +63,8 @@ export default function PrintVaccinationProgram({ context }) {
   const [expanded, setExpanded] = React.useState(false);
   const [program, setProgram] = useState([]);
   const [url, setURL] = useState([]);
+  const [errors, setErrors] = useState(null);
+  const [ready, setReady] = React.useState(false);
   
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -71,10 +77,17 @@ export default function PrintVaccinationProgram({ context }) {
 
   useEffect(() => {
     API.get('vaccination_programs/'+context.match.params.id, {withCredentials: true})
-       .then(response => processReturn(response.data));
-  }, []);
+       .then(response => {
+         setReady(true);
+         if (response.status == 200)
+           processReturn(response.data);
+         else
+           setErrors(response.data.errors);
+       })
+       .catch(error => setErrors(error.response.data.errors));
+  }, [context.match.params.id]);
 
-  return (
+  return ready && url ? (
     <Container component="main" className={classes.container}>
     <Card className={classes.root}>
       <CardHeader
@@ -84,7 +97,7 @@ export default function PrintVaccinationProgram({ context }) {
         title={program.vaccinator}
         subheader={<Moment format="MMMM DD, YYYY">{program.created_at}</Moment>}
       />
-      <QRCode value={url} fgColor="#3654DD" size={Math.min(size.height-250, size.width-32)} level="H" />
+      <QRCode value={url} fgColor="#3654DD" size={Math.min(size.height-250, size.width-32)} level="H" /> 
       <CardActions disableSpacing className={classes.descrip}>
         <Typography variant="body2" color="textSecondary" component="p">
           Scan the code above to create your own Vaccine Certificate
@@ -109,7 +122,11 @@ export default function PrintVaccinationProgram({ context }) {
       </Collapse>
     </Card>
     </Container>
-  );
+  ) : errors ? (
+    <ErrorScreen title={"Invalid Vaccination Program"} errors={errors} />
+  ) : (
+    <LoadingScreen />
+  )
 }
 
 // Hook
