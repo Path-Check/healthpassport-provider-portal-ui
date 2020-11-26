@@ -1,5 +1,6 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import clsx from 'clsx';
+import Avatar from '@material-ui/core/Avatar';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
@@ -22,7 +23,13 @@ import { mainListItems, secondaryListItems } from './Menu';
 import VaccinationPrograms from './VaccinationPrograms';
 import Chart from './Chart';
 import Today from './Today';
+import { red } from '@material-ui/core/colors';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import Fade from '@material-ui/core/Fade';
+import { useHistory } from 'react-router-dom';
 
+import API from '../API';
 
 function Copyright() {
   return (
@@ -67,6 +74,9 @@ const useStyles = makeStyles((theme) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
     }),
+  },
+  avatar: {
+    backgroundColor: red[500],
   },
   menuButton: {
     marginRight: 32,
@@ -118,11 +128,29 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
- 
-
 export default function Dashboard() {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
+    
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const accountOpen = Boolean(anchorEl);
+
+  let history = useHistory();
+
+  const handleAccountClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleAccountClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleAccountCloseLogout = () => {
+    setAnchorEl(null);
+    API.post('logout', {}, {withCredentials: true})
+       .then(response => history.go(0));
+  };
+
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -148,11 +176,33 @@ export default function Dashboard() {
           <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
             Dashboard
           </Typography>
-          <IconButton color="inherit">
+          <IconButton color="inherit" aria-controls="fade-menu" aria-haspopup="true" onClick={handleAccountClick}>
             <Badge badgeContent={0} color="secondary">
-              <NotificationsIcon />
+              <Avatar className={classes.avatar}>
+                
+              </Avatar>
             </Badge>
           </IconButton>
+          <Menu
+            id="fade-menu"
+            anchorEl={anchorEl}
+            keepMounted
+            open={accountOpen}
+            onClose={handleAccountClose}
+            getContentAnchorEl={null}
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'center',
+            }}
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'center',
+            }}
+            TransitionComponent={Fade}>
+            <MenuItem onClick={handleAccountClose}>Profile</MenuItem>
+            <MenuItem onClick={handleAccountClose}>My account</MenuItem>
+            <MenuItem onClick={handleAccountCloseLogout}>Logout</MenuItem>
+          </Menu>
         </Toolbar>
       </AppBar>
 
