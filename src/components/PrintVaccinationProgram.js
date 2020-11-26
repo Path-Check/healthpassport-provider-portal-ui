@@ -4,7 +4,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
 import Container from '@material-ui/core/Container';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
@@ -79,7 +78,7 @@ export default function PrintVaccinationProgram({ context }) {
     API.get('vaccination_programs/'+context.match.params.id, {withCredentials: true})
        .then(response => {
          setReady(true);
-         if (response.status == 200)
+         if (response.status === 200)
            processReturn(response.data);
          else
            setErrors(response.data.errors);
