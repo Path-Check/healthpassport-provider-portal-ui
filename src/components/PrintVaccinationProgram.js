@@ -81,11 +81,6 @@ export default function PrintVaccinationProgram({ context }) {
         avatar={
           <Avatar aria-label="recipe" className={classes.avatar} src="/cvs.png"/>
         }
-        action={
-          <IconButton aria-label="settings">
-            <MoreVertIcon />
-          </IconButton>
-        }
         title={program.vaccinator}
         subheader={<Moment format="MMMM DD, YYYY">{program.created_at}</Moment>}
       />
