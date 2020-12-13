@@ -49,6 +49,8 @@ function AddVaccinationProgram() {
   const [product, setProduct] = useState([]);
   const [dose, setDose] = useState([]);
   const [route, setRoute] = useState([]);
+  const [requiredDoses, setRequiredDoses] = useState([]);
+  const [nextDoseInDays, setNextDoseInDays] = useState([]);
   const [errors, setErrors] = useState([]);
   
   let history = useHistory();
@@ -61,7 +63,9 @@ function AddVaccinationProgram() {
       brand: brand,
       product: product, 
       dose: dose, 
-      route: route 
+      route: route, 
+      required_doses: requiredDoses,
+      next_dose_in_days: nextDoseInDays, 
     }
 
     API.post('vaccination_programs/', {vaccinationProgram}, {withCredentials: true})
@@ -99,12 +103,20 @@ function AddVaccinationProgram() {
             label="Vaccine Product" onChange={(event) => {setProduct(event.target.value)}} 
           />
           <TextField variant="outlined" margin="normal" required fullWidth 
-            id="dose" name="dose" value={dose} 
-            label="Applying Dose" onChange={(event) => {setDose(event.target.value)}} 
-          />
-          <TextField variant="outlined" margin="normal" required fullWidth 
             id="route" name="route" value={route} 
             label="Route" onChange={(event) => {setRoute(event.target.value)}} 
+          />
+          <TextField variant="outlined" margin="normal" required fullWidth 
+            id="dose" name="dose" value={dose} 
+            label="Dose Size (ml)" onChange={(event) => {setDose(event.target.value)}} 
+          />
+          <TextField variant="outlined" margin="normal" required fullWidth 
+            id="requiredDoses" name="requiredDoses" value={requiredDoses} 
+            label="Number of Required Doses" onChange={(event) => {setRequiredDoses(event.target.value)}} 
+          />
+          <TextField variant="outlined" margin="normal" required fullWidth 
+            id="nextDoseInDays" name="nextDoseInDays" value={nextDoseInDays} 
+            label="Next Dose in (in days)" onChange={(event) => {setNextDoseInDays(event.target.value)}} 
           />
 
           <Typography component="p" className={classes.errors}>
