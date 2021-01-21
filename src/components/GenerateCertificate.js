@@ -88,7 +88,7 @@ function GenerateCertificate({ context }) {
         <Typography component="h1" variant="h5">
           New Vaccine Certificate
         </Typography>
-        { certificate.length == 0 ?    
+        { certificate.length === 0 ?    
           <form className={classes.form} onSubmit={handleSubmit}>
             <TextField variant="outlined" margin="normal" required fullWidth 
               id="vaccinee" name="vaccinee" value={vaccinee} 
