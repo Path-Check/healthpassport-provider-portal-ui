@@ -34,9 +34,8 @@ export default function VaccinationPrograms() {
             <TableCell>Brand</TableCell>
             <TableCell>Product</TableCell>
             <TableCell>Route</TableCell>
-            <TableCell>Dose (ml)</TableCell>
-            <TableCell>N. of Doses</TableCell>
-            <TableCell>Next Dose in (days)</TableCell>
+            <TableCell>Dose (ul)</TableCell>
+            <TableCell>Boosts</TableCell>
             <TableCell>Action</TableCell>
           </TableRow>
         </TableHead>
@@ -49,8 +48,6 @@ export default function VaccinationPrograms() {
               <TableCell>{row.route}</TableCell>
               <TableCell>{row.dose}</TableCell>
               <TableCell>{row.required_doses}</TableCell>
-              <TableCell>{row.next_dose_in_days}</TableCell>
-              
               <TableCell>
                 <Link href={"/printVaccination/" + row.id}>Show Code
                 </Link>

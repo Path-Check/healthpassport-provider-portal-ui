@@ -108,15 +108,11 @@ function AddVaccinationProgram() {
           />
           <TextField variant="outlined" margin="normal" required fullWidth 
             id="dose" name="dose" value={dose} 
-            label="Dose Size (ml)" onChange={(event) => {setDose(event.target.value)}} 
+            label="Dose Size (ul)" onChange={(event) => {setDose(event.target.value)}} 
           />
           <TextField variant="outlined" margin="normal" required fullWidth 
             id="requiredDoses" name="requiredDoses" value={requiredDoses} 
-            label="Number of Required Doses" onChange={(event) => {setRequiredDoses(event.target.value)}} 
-          />
-          <TextField variant="outlined" margin="normal" required fullWidth 
-            id="nextDoseInDays" name="nextDoseInDays" value={nextDoseInDays} 
-            label="Next Dose in (in days)" onChange={(event) => {setNextDoseInDays(event.target.value)}} 
+            label="Boosts" onChange={(event) => {setRequiredDoses(event.target.value)}} 
           />
 
           <Typography component="p" className={classes.errors}>

@@ -116,7 +116,7 @@ function GenerateCertificate({ context }) {
           }
       </div>
     </Container>
-  ) : errors ? (
+  ) : errors.any ? (
     <ErrorScreen title={"Invalid Vaccination Program"} errors={errors} />
   ) : (
     <Loading />
