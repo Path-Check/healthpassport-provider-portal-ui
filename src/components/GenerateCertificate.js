@@ -112,9 +112,6 @@ function GenerateCertificate({ context }) {
           :
           <div className={classes.certificte}>
             <QRCode value={certificate} fgColor="#3654DD" size={345} level="H" />
-            <Typography component="h3" variant="h5">
-               {certificate}
-            </Typography>
           </div>
           }
       </div>
